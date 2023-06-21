@@ -2,7 +2,10 @@ spring:
   output:
     ansi:
       enabled: always
-  main:
-    allow-bean-definition-overriding: true
+
 server:
   port: 9000
+
+logging:
+  level:
+    org.springframework.security: trace
