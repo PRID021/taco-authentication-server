@@ -40,12 +40,11 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 public class SecurityConfig {
 
     @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Order(1)
     public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http)
             throws Exception {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
-
         http
                 // Redirect to the login page if not authenticated from the authorization server
                 .exceptionHandling((exception) -> exception.defaultAuthenticationEntryPointFor(
@@ -53,7 +52,6 @@ public class SecurityConfig {
                         new MediaTypeRequestMatcher(MediaType.TEXT_HTML)))
                 // Accept access token for User info and/or Client Registration
                 .oauth2ResourceServer((resourceServer) -> resourceServer.jwt(Customizer.withDefaults()));
-
         return http.build();
     }
 
@@ -64,6 +62,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((authorize) -> authorize
                         .anyRequest().authenticated())
+                .csrf((csrf) -> csrf.disable())
                 // Form login handles the redirect to the login page
                 // form the authorization server filter chain.
                 .formLogin(Customizer.withDefaults());
@@ -85,15 +84,14 @@ public class SecurityConfig {
     public RegisteredClientRepository registeredClientRepository(PasswordEncoder passwordEncoder) {
         RegisteredClient registeredClient = RegisteredClient.withId(
                 UUID.randomUUID().toString())
-                .clientId("taco-admin-client ")
+                .clientId("taco-admin-client")
                 .clientSecret(passwordEncoder.encode("secret"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("http://127.0.0.1:9090/login/oauth2/code/taco-admin-client")
-                .postLogoutRedirectUri("http://127.0.0.1:9090/")
-                .scope("writeIngredients")
-                .scope("deleteIngredients")
+                .redirectUri("https://oidcdebugger.com/debug")
+                // .postLogoutRedirectUri("http://127.0.0.1:9090/")
+                .scope("write")
                 .scope(OidcScopes.OPENID)
                 .clientSettings(
                         ClientSettings.builder().requireAuthorizationConsent(true).build())
