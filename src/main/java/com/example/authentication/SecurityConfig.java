@@ -13,7 +13,6 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
@@ -50,6 +49,7 @@ public class SecurityConfig {
                 .exceptionHandling((exception) -> exception.defaultAuthenticationEntryPointFor(
                         new LoginUrlAuthenticationEntryPoint("/login"),
                         new MediaTypeRequestMatcher(MediaType.TEXT_HTML)))
+                // .csrf((csrf) -> csrf.disable())
                 // Accept access token for User info and/or Client Registration
                 .oauth2ResourceServer((resourceServer) -> resourceServer.jwt(Customizer.withDefaults()));
         return http.build();
@@ -62,7 +62,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((authorize) -> authorize
                         .anyRequest().authenticated())
-                .csrf((csrf) -> csrf.disable())
+                // .csrf((csrf) -> csrf.disable())
                 // Form login handles the redirect to the login page
                 // form the authorization server filter chain.
                 .formLogin(Customizer.withDefaults());
@@ -90,8 +90,8 @@ public class SecurityConfig {
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .redirectUri("https://oidcdebugger.com/debug")
-                // .postLogoutRedirectUri("http://127.0.0.1:9090/")
-                .scope("write")
+                .scope("writeIngredients")
+                .scope("deleteIngredients")
                 .scope(OidcScopes.OPENID)
                 .clientSettings(
                         ClientSettings.builder().requireAuthorizationConsent(true).build())
