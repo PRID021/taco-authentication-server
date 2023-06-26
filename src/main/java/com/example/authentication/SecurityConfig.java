@@ -51,6 +51,13 @@ public class SecurityConfig {
                         new MediaTypeRequestMatcher(MediaType.TEXT_HTML)))
                 // .csrf((csrf) -> csrf.disable())
                 // Accept access token for User info and/or Client Registration
+                .cors(cors -> cors.configurationSource(request -> {
+                    var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
+                    corsConfiguration.setAllowedOrigins(java.util.List.of("http://localhost:5000"));
+                    corsConfiguration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE"));
+                    corsConfiguration.setAllowedHeaders(java.util.List.of("*"));
+                    return corsConfiguration;
+                }))
                 .oauth2ResourceServer((resourceServer) -> resourceServer.jwt(Customizer.withDefaults()));
         return http.build();
     }
@@ -65,6 +72,13 @@ public class SecurityConfig {
                 // .csrf((csrf) -> csrf.disable())
                 // Form login handles the redirect to the login page
                 // form the authorization server filter chain.
+                .cors(cors -> cors.configurationSource(request -> {
+                    var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
+                    corsConfiguration.setAllowedOrigins(java.util.List.of("http://localhost:5000"));
+                    corsConfiguration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE"));
+                    corsConfiguration.setAllowedHeaders(java.util.List.of("*"));
+                    return corsConfiguration;
+                }))
                 .formLogin(Customizer.withDefaults());
 
         return http.build();
