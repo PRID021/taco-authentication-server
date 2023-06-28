@@ -2,82 +2,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <title>Please Log In</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taco-cloud</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 
 <body>
-    <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span>
+    <form class="form-wrapper" th:action="@{/login}" method="post" role="form">
+        <h1>Login</h1>
+        <h3>Welcome to on board with us!</h3>
+        <div class="input-area">
+            <div class="input-container">
+                <input type="text" id="username" name="username" value="" aria-labelledby="label-username">
+                <label class="label" for="username" id="label-username">
+                    <div class="text">First Name</div>
+                </label>
+            </div>
 
-        <div class="signin">
-
-            <div class="content">
-
-                <h2>Sign In</h2>
-                <h3>Welcome to onboard with us</h3>
-                <div class="error" th:if="${param.error}">
-                    Invalid username and password.</div>
-                <div class="error" th:if="${param.logout}">
-                    You have been logged out.</div>
-
-                <form class="form" th:action="@{/login}" method="post">
-
-                    <div class="inputBox">
-
-                        <input type="text" required name="username" id="username"> <i>Username</i>
-
-                    </div>
-
-                    <div class="inputBox">
-
-                        <input type="password" required name="password" id="password"> <i>Password</i>
-
-                    </div>
-
-                    <div class="links"> <a href="#">Forgot Password</a> <a href="#">Signup</a>
-
-                    </div>
-
-                    <div class="inputBox">
-                        <input type="submit" value="Login">
-                    </div>
-                </form>
+            <div class="input-container">
+                <input type="password" id="password" name="password" value="" aria-labelledby="label-password">
+                <label class="label" for="password" id="label-password">
+                    <div class="text">Password</div>
+                </label>
             </div>
         </div>
-    </section>
+        <button class="btn btn-green ripple" type="submit">Sign In</button>
+
+    </form>
+
+
 
 </body>
+<script th:src="@{/js/login.js}"></script>
 
 </html>
