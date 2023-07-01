@@ -8,7 +8,19 @@ pInput.addEventListener('input', () => {
     pInput.setAttribute('value', pInput.value);
 });
 
-
+document.addEventListener('DOMContentLoaded', function() {
+    var usernameInput = document.getElementById('username');
+    var passwordInput = document.getElementById('password');
+    
+    // Add event listeners to detect changes in the input fields
+    usernameInput.addEventListener('input', syncInputValue);
+    passwordInput.addEventListener('input', syncInputValue);
+  });
+  
+  function syncInputValue(event) {
+    // Update the value of the input field to match the entered content
+    this.value = this.value;
+  }
 
 const buttons = document.querySelectorAll('a');
 buttons.forEach(btn => {
